@@ -22,48 +22,33 @@ class _RegisterPageState extends State<RegisterPage> {
   final _confirmpasswordController = TextEditingController();
 
   Future signUp() async {
-    if (passwordConfirmed()) {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        // name: _nameController.text.trim(),
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
-    }
-    if (!passwordConfirmed()) {
+    try {
+      if (passwordConfirmed()) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+      }
+      if (!passwordConfirmed()) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                content: Text('Password is wrong'),
+              );
+            });
+      }
+    } on FirebaseAuthException catch (e) {
+      print(e);
       showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
-              content: Text('Password is wrong'),
+              content: Text(e.message.toString()),
             );
           });
     }
   }
-
-  // Future signUp() async {
-  //   try {
-  //     await FirebaseAuth.instance.createUserWithEmailAndPassword(
-  //       email: _emailController.text.trim(),
-  //       password: _passwordController.text.trim(),
-  //     );
-  //     showDialog(
-  //         context: context,
-  //         builder: (context) {
-  //           return AlertDialog(
-  //             content: Text('welcome to account'),
-  //           );
-  //         });
-  //   } on FirebaseAuthException catch (e) {
-  //     print(e);
-  //     showDialog(
-  //         context: context,
-  //         builder: (context) {
-  //           return AlertDialog(
-  //             content: Text(e.message.toString()),
-  //           );
-  //         });
-  //   }
-  // }
 
   bool passwordConfirmed() {
     if (_passwordController.text.trim() ==
