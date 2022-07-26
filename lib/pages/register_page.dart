@@ -29,7 +29,41 @@ class _RegisterPageState extends State<RegisterPage> {
         password: _passwordController.text.trim(),
       );
     }
+    if (!passwordConfirmed()) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text('Password is wrong'),
+            );
+          });
+    }
   }
+
+  // Future signUp() async {
+  //   try {
+  //     await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  //       email: _emailController.text.trim(),
+  //       password: _passwordController.text.trim(),
+  //     );
+  //     showDialog(
+  //         context: context,
+  //         builder: (context) {
+  //           return AlertDialog(
+  //             content: Text('welcome to account'),
+  //           );
+  //         });
+  //   } on FirebaseAuthException catch (e) {
+  //     print(e);
+  //     showDialog(
+  //         context: context,
+  //         builder: (context) {
+  //           return AlertDialog(
+  //             content: Text(e.message.toString()),
+  //           );
+  //         });
+  //   }
+  // }
 
   bool passwordConfirmed() {
     if (_passwordController.text.trim() ==
