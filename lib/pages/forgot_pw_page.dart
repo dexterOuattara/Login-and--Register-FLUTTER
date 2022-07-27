@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../constant.dart';
+
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
 
@@ -24,8 +26,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       showDialog(
           context: context,
           builder: (context) {
-            return AlertDialog(
-              content: Text('Password resent to your email address'),
+            return const AlertDialog(
+              content: kTextResetPasswordResent,
             );
           });
     } on FirebaseAuthException catch (e) {
@@ -50,23 +52,20 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            'Enter Your email and we will send you a password reset link',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 25),
-          ),
-          SizedBox(height: 30),
+          kTextEnterPassword,
+          // side box 30 margin
+          kSideBox30,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: TextField(
               controller: _emailController,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
+                  borderSide: kBorderSideWhite,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.deepPurple),
+                  borderSide: kBorderSidePurple,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 hintText: 'Email',
@@ -75,11 +74,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               ),
             ),
           ),
-          SizedBox(height: 30),
+          // side box 30 margin
+          kSideBox30,
           MaterialButton(
             onPressed: passwordReset,
-            child: Text('Reset Password'),
             color: Colors.deepPurple[200],
+            child: kTextResetPassword,
           ),
         ],
       ),

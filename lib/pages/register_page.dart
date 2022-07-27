@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'forgot_pw_page.dart';
 
 class RegisterPage extends StatefulWidget {
   final VoidCallback showLoginPage;
@@ -280,6 +281,38 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 //not a member ? register now
 
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return ForgotPasswordPage();
+                              },
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Forgot Password',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: 25),
+
+                //not a member ? register now
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -297,20 +330,6 @@ class _RegisterPageState extends State<RegisterPage> {
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 25),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      'Forgot Password',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red,
                       ),
                     ),
                   ],
